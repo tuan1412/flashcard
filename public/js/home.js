@@ -4,11 +4,14 @@ const getRandomFlashcard = async () => {
   const category =  $("input[name='category']:checked").val();
 
   try {
+    $('#spinner').show();
     const res = await $.ajax({
       url: '/flashcards/random',
       method: 'GET',
       data: { category }
     });
+
+    $('#spinner').hide();
   
     if (res.success) {
       const { frontSide, backSide, isRemember, category, _id } = res.data;
@@ -28,6 +31,7 @@ const getRandomFlashcard = async () => {
       flashcardId = _id;
     }
   } catch (err) {
+    $('#spinner').show();
     console.log(err);
   }
 };
