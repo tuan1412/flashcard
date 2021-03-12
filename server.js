@@ -11,7 +11,8 @@ const app = express();
 
 app.use(express.urlencoded({ urlencoded: true }));
 
-app.use(express.static('public'));
+const clientFolder = process.env.NODE_ENV === 'production' ? 'build' : 'public';
+app.use(express.static(clientFolder));
 
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, './public/html/home.html'));
